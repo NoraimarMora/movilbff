@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var router = require('./routers/router')
+var router = require('./router/router')
 var bodyParser = require('body-parser');
 var {PORT, SERVER_HOSTNAME} = require('./config');
 
