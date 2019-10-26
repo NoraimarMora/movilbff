@@ -5,6 +5,7 @@ const isAuth = require('../middlewares');
 
 const BASE_URL = 'http://mscatalogo'
 const api = apiAdapter(BASE_URL)
+const api2 = apiAdapter('http://msmarcas')
 
 router.get('/categories', isAuth, (req, res) => {
   api.get('/categorias').then(resp => {
@@ -14,7 +15,25 @@ router.get('/categories', isAuth, (req, res) => {
 
 router.get('/categories/:id/brands', isAuth, (req, res) => {
   api.get('/marcas/categoria/' + req.params.id).then(resp => {
-    res.send(resp.data)
+    if (resp.data.status == 200) {
+      var ids = resp.data.brands
+      var marcas = []
+
+      ids.map((marca_id) => {
+        api2.get('marcas/' + marca_id).then(r => {
+          if (r.data.status == 200) {
+            marcas.push(r.data.brand)
+          }
+        })
+      })
+
+      resp.send({
+        status: 200,
+        brands: marcas
+      })
+    } else {
+      res.send(resp.data)
+    }
   })
 })
 
