@@ -1,10 +1,11 @@
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var router = require('./router/router')
 var bodyParser = require('body-parser');
 var {PORT, SERVER_HOSTNAME} = require('./config');
 
-
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
