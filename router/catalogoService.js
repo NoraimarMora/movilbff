@@ -27,7 +27,7 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
         })
       })
 
-      resp.send({
+      res.send({
         status: 200,
         brands: marcas
       })

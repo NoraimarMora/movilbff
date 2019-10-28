@@ -41,9 +41,9 @@ router.delete('/carts/:id/delete', isAuth, (req, res) => {
   })
 })
 
-// Eliminar carrito (Procesar carrito)
-router.delete('/carts/:id', isAuth, (req, res) => {
-  api.delete('/carritos/delete/' + req.params.id, req.body).then(resp => {
+// Obtener carritos
+router.get('/carts', isAuth, (req, res) => {
+  api.get('/carritos').then(resp => {
     res.send(resp.data)
   })
 })
