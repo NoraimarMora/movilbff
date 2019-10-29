@@ -24,18 +24,15 @@ router.get('/categories/:id/brands', isAuth, async (req, res) => {
   const { data } = await api.get('/marcas/categoria/' + req.params.id)
 
   if (data.status == 200) {
-    asyncForEach(data.brands, async ({ marca_id }) => {
-      console.log('Consultando marca ' + marca_id)
-      const { data2 } = await api2.get('/marcas/' + marca_id)
+    const brandResponses = await Promise.all(
+      data.brands.map(brand_id => api2.get('/marcas/' + brand_id))
+    )
 
-      if (data2.status == 200) {
-        marcas.push(data2.brand)
-      }
-    }).then(r => {
-      res.send({
-        status: 200,
-        brands: marcas 
-      })
+    brandResponses.map(r => marcas.push(r.data.brand))
+
+    res.send({
+      status: 200,
+      brands: marcas
     })
   } else {
     res.send(data)
