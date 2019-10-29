@@ -20,6 +20,7 @@ async function asyncForEach (arr, callback) {
 }
 
 router.get('/categories/:id/brands', isAuth, async (req, res) => {
+  var marcas = []
   const { data } = await api.get('/marcas/categoria/' + req.params.id)
 
   if (data.status == 200) {
@@ -31,6 +32,13 @@ router.get('/categories/:id/brands', isAuth, async (req, res) => {
         marcas.push(data2.brand)
       }
     })
+
+    res.send({
+      status: 200,
+      brands: marcas 
+    })
+  } else {
+    res.send(data)
   }
   /*api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
     if (resp.data.status == 200) {
