@@ -27,7 +27,7 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
 
       await asyncForEach(ids, async (marca_id) => {
         let r = await api2.get('marcas/' + marca_id)
-          
+          console.log(r)
         if (r.data.status == 200) {
           marcas.push(r.data.brand)
           console.log('push')
