@@ -19,8 +19,20 @@ async function asyncForEach (arr, callback) {
   }
 }
 
-router.get('/categories/:id/brands', isAuth, (req, res) => {
-  api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
+router.get('/categories/:id/brands', isAuth, async (req, res) => {
+  const { data } = await api.get('/marcas/categoria/' + req.params.id)
+
+  if (data.status == 200) {
+    await asyncForEach(data.brands, async (marca_id) => {
+      console.log('Consultando marca ' + marca_id)
+      const { data2 } = await api2.get('/marcas/' + marca_id)
+
+      if (data2.status == 200) {
+        marcas.push(data2.brand)
+      }
+    })
+  }
+  /*api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
       var marcas = []
@@ -34,14 +46,6 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
         }
         
       })
-      /*ids.forEach((marca_id) => {
-        api2.get('marcas/' + marca_id).then(r => {
-          if (r.data.status == 200) {
-            marcas.push(r.data.brand)
-            console.log('push')
-          }
-        })
-      })*/
 
       console.log('envio respuesta')
       res.send({
@@ -51,7 +55,7 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
     } else {
       res.send(resp.data)
     }
-  })
+  })*/
 })
 
 router.get('/brands/:id/products', isAuth, (req, res) => {
