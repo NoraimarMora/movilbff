@@ -14,18 +14,15 @@ router.get('/categories', isAuth, (req, res) => {
 })
 
 router.get('/categories/:id/brands', isAuth, (req, res) => {
-  api.get('/marcas/categoria/' + req.params.id).then(resp => {
+  api.get('/marcas/categoria/' + req.params.id).then(async (resp) => {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
       var marcas = []
 
       ids.map((marca_id) => {
-        api2.get('marcas/' + marca_id).then(r => {
+        await api2.get('marcas/' + marca_id).then(r => {
           if (r.data.status == 200) {
-            console.log('dentro del if')
             marcas.push(r.data.brand)
-            console.log('despues de hacer push')
-            console.log(marcas)
           }
         })
       })
