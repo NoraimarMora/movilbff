@@ -13,7 +13,7 @@ router.get('/categories', isAuth, (req, res) => {
   })
 })
 
-const asyncForEach = async (arr, callback) => {
+async function asyncForEach (arr, callback) {
   for (let i = 0; i < arr.lenght; i++) {
     await callback(arr[i], i, arr)
   }
@@ -25,9 +25,9 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
       var ids = resp.data.brands
       var marcas = []
 
-      await ids.forEach(async (marca_id) => {
+      await asyncForEach(ids, async (marca_id) => {
         let r = await api2.get('marcas/' + marca_id)
-          console.log(r)
+          
         if (r.data.status == 200) {
           marcas.push(r.data.brand)
           console.log('push')
