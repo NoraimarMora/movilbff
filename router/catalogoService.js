@@ -20,13 +20,15 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
       var marcas = []
 
       await ids.map((marca_id) => {
-        await api2.get('marcas/' + marca_id).then(r => {
+        api2.get('marcas/' + marca_id).then(r => {
           if (r.data.status == 200) {
-            await marcas.push(r.data.brand)
+            marcas.push(r.data.brand)
+            console.log('push')
           }
         })
       })
 
+      console.log('envio respuesta')
       res.send({
         status: 200,
         brands: marcas
