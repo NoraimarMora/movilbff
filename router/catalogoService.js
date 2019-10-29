@@ -14,7 +14,7 @@ router.get('/categories', isAuth, (req, res) => {
 })
 
 router.get('/categories/:id/brands', isAuth, (req, res) => {
-  api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
+  api.get('/marcas/categoria/' + req.params.id).then(resp => {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
       var marcas = []
@@ -28,11 +28,13 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
         })
       })
 
-      console.log('envio respuesta')
-      res.send({
-        status: 200,
-        brands: marcas
-      })
+      if (ids.lenght == marcas.lenght) {
+        console.log('envio respuesta')
+        res.send({
+          status: 200,
+          brands: marcas
+        })
+      }
     } else {
       res.send(resp.data)
     }
