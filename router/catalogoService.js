@@ -17,14 +17,15 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
   api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
-      var marcas = []
+      var marcas = brands = []
 
       await ids.map((marca_id) => {
         api2.get('marcas/' + marca_id).then(r => {
           if (r.data.status == 200) {
-            marcas.push(r.data.brand)
+            marcas = r.data.brand
           }
         })
+        brands.push(marcas);
       })
 
       res.send({
