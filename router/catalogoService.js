@@ -17,7 +17,8 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
   api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
-      var marcas = brands = []
+      var marcas = {}
+      var brands = []
 
       await ids.map((marca_id) => {
         api2.get('marcas/' + marca_id).then(r => {
@@ -30,7 +31,7 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
 
       res.send({
         status: 200,
-        brands: marcas
+        brands: brands
       })
     } else {
       res.send(resp.data)
