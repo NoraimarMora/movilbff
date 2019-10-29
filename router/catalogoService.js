@@ -13,7 +13,7 @@ router.get('/categories', isAuth, (req, res) => {
   })
 })
 
-async function asyncForEach (arr, callback) {
+const asyncForEach = async (arr, callback) => {
   for (let i = 0; i < arr.lenght; i++) {
     await callback(arr[i], i, arr)
   }
@@ -24,7 +24,7 @@ router.get('/categories/:id/brands', isAuth, async (req, res) => {
   const { data } = await api.get('/marcas/categoria/' + req.params.id)
 
   if (data.status == 200) {
-    await asyncForEach(data.brands, async (marca_id) => {
+    await asyncForEach(data.brands, async ({ marca_id }) => {
       console.log('Consultando marca ' + marca_id)
       const { data2 } = await api2.get('/marcas/' + marca_id)
 
