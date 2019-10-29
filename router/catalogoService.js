@@ -25,7 +25,7 @@ router.get('/categories/:id/brands', isAuth, (req, res) => {
       var ids = resp.data.brands
       var marcas = []
 
-      await asyncForEach(ids, async (marca_id) => {
+      await ids.forEach(async (marca_id) => {
         let r = await api2.get('marcas/' + marca_id)
           console.log(r)
         if (r.data.status == 200) {
