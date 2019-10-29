@@ -13,28 +13,41 @@ router.get('/categories', isAuth, (req, res) => {
   })
 })
 
+const asyncForEach = async (arr, callback) => {
+  for (let i = 0; i < arr.lenght; i++) {
+    await callback(arr[i], i, arr)
+  }
+}
+
 router.get('/categories/:id/brands', isAuth, (req, res) => {
-  api.get('/marcas/categoria/' + req.params.id).then(resp => {
+  api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
       var marcas = []
 
-      ids.forEach((marca_id) => {
+      await asyncForEach(ids, async (marca_id) => {
+        let r = await api2.get('marcas/' + marca_id)
+          
+        if (r.data.status == 200) {
+          marcas.push(r.data.brand)
+          console.log('push')
+        }
+        
+      })
+      /*ids.forEach((marca_id) => {
         api2.get('marcas/' + marca_id).then(r => {
           if (r.data.status == 200) {
             marcas.push(r.data.brand)
             console.log('push')
           }
         })
-      })
+      })*/
 
-      if (ids.lenght == marcas.lenght) {
-        console.log('envio respuesta')
-        res.send({
-          status: 200,
-          brands: marcas
-        })
-      }
+      console.log('envio respuesta')
+      res.send({
+        status: 200,
+        brands: marcas
+      })
     } else {
       res.send(resp.data)
     }
