@@ -14,12 +14,12 @@ router.get('/categories', isAuth, (req, res) => {
 })
 
 router.get('/categories/:id/brands', isAuth, (req, res) => {
-  api.get('/marcas/categoria/' + req.params.id).then(async function (resp) {
+  api.get('/marcas/categoria/' + req.params.id).then(resp => {
     if (resp.data.status == 200) {
       var ids = resp.data.brands
       var marcas = []
 
-      await ids.map((marca_id) => {
+      ids.forEach((marca_id) => {
         api2.get('marcas/' + marca_id).then(r => {
           if (r.data.status == 200) {
             marcas.push(r.data.brand)
