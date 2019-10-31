@@ -15,6 +15,8 @@ app.get('/', (req, res) => {
 
 app.use(router)
 
-app.listen(PORT, () => {
+var server = app.listen(PORT, () => {
     console.log(`Server running correctly in the url: http://${SERVER_HOSTNAME}:${PORT}`);
 });
+
+server.setTimeout(1000);
