@@ -7,7 +7,7 @@ var {PORT, SERVER_HOSTNAME} = require('./config');
 var timeout = require('connect-timeout')
 
 app.use(cors())
-app.use(timeout(1000))
+app.use(timeout(10000))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }));
 
