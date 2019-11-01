@@ -10,12 +10,16 @@ const api = apiAdapter(BASE_URL)
 router.get('/clients/:id/orders', isAuth, (req, res) => {
   api.get('/ordenes/cliente/' + req.params.id).then(resp => {
     res.send(resp.data)
+  }).catch(error => {
+    res.send(error)
   })
 })
 
 router.get('/orders/:id', isAuth, (req, res) => {
   api.get('/ordenes/' + req.params.id).then(resp => {
     res.send(resp.data)
+  }).catch(error => {
+    res.send(error)
   })
 })
 
