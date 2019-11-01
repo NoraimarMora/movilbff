@@ -8,56 +8,68 @@ const api = apiAdapter(BASE_URL)
 
 // Obtener carrito de un cliente
 router.get('/clients/:id/cart', isAuth, (req, res) => {
-  api.get('/carritos/cliente/' + req.params.id).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.get('/carritos/cliente/' + req.params.id).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 // Crear un carrito
 router.post('/carts', isAuth, (req, res) => {
-  api.post('/carritos', req.body).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.post('/carritos', req.body).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 // Agregar elemento al carrito
 router.post('/carts/:id/add', isAuth, (req, res) => {
-  api.post('/carritos/elemento/' + req.params.id, req.body).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.post('/carritos/elemento/' + req.params.id, req.body).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 // Actualizar el carrito
 router.put('/carts/:id', isAuth, (req, res) => {
-  api.put('/carritos/update/' + req.params.id, req.body).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.put('/carritos/update/' + req.params.id, req.body).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 // Eliminar elemento del carrito
 router.delete('/carts/:id/delete', isAuth, (req, res) => {
-  api.delete('/carritos/elemento/' + req.params.id, req.body).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.delete('/carritos/elemento/' + req.params.id, req.body).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 // Eliminar carrito (Procesar carrito)
 router.delete('/carts/:id', isAuth, (req, res) => {
-  api.delete('/carritos/delete/' + req.params.id).then(resp => {
-    res.send(resp.data)
-  }).catch((error) => {
+  try {
+    api.delete('/carritos/delete/' + req.params.id).then(resp => {
+      res.send(resp.data)
+    })
+  }catch(error) {
     res.send(error)
-  })
+  }
 })
 
 module.exports = router
