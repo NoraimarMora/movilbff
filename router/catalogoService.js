@@ -10,7 +10,7 @@ const api2 = apiAdapter('http://msmarcas')
 router.get('/categories', isAuth, (req, res) => {
   api.get('/categorias').then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
@@ -33,14 +33,14 @@ router.get('/categories/:id/brands', isAuth, async (req, res) => {
   } else {
     res.send(data)
   }
-}).catch(error => {
+}).catch((error) => {
   res.send(error)
 })
 
 router.get('/brands/:id/products', isAuth, (req, res) => {
   api.get('/marcas/' + req.params.id + '/productos').then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })

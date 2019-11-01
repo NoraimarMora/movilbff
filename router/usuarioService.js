@@ -11,7 +11,7 @@ const api = apiAdapter(BASE_URL)
 router.get('/clients/:id/addresses', isAuth, (req, res) => {
   api.get('/direcciones/cliente/' + req.params.id).then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
@@ -20,7 +20,7 @@ router.get('/clients/:id/addresses', isAuth, (req, res) => {
 router.get('/clients/:id', isAuth, (req, res) => {
   api.get('/clientes/' + req.params.id).then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
@@ -42,7 +42,7 @@ router.post('/login', (req, res) => {
     } else {
       res.send(resp.data)
     }
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
@@ -51,7 +51,7 @@ router.post('/login', (req, res) => {
 router.post('/clients/:id/addresses', isAuth, (req, res) => {
   api.post('/direcciones/', req.body).then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
@@ -60,7 +60,7 @@ router.post('/clients/:id/addresses', isAuth, (req, res) => {
 router.put('/clients/:id', isAuth, (req, res) => {
   api.put('/clientes/update/' + req.params.id, req.body).then(resp => {
     res.send(resp.data)
-  }).catch(error => {
+  }).catch((error) => {
     res.send(error)
   })
 })
